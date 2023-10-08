@@ -1,0 +1,1 @@
+@main def forargs(args: String*): Unit = for(arg <- args) println(arg)

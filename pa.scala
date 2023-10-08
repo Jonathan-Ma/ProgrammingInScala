@@ -1,0 +1,1 @@
+@main def pa(args: String*): Unit = args.foreach(arg => println(arg))

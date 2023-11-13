@@ -22,8 +22,8 @@ object main {
     println("The factored version of 64/128 is: " + rational4)// result of using a private val and method
     println("Rational " + rational4 + " + " + integer + " = " + (rational4+integer))
      */
-
-
     grep("random")
+    tryCatching()
+    println(multiTable())
   }
 }

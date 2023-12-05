@@ -29,7 +29,7 @@ object chapter7 {
 
   def fileLines(file: java.io.File): Array[String] = scala.io.Source.fromFile(file).getLines().toArray
 
-  def grep(pattern: String) =
+  def grep(pattern: String): Unit =
     for (file <- filesHere if file.getName.endsWith(".scala"))
       for (line <- fileLines(file) if line.contains(pattern))
         println(s"$file: ${line.trim}")

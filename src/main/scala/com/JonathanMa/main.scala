@@ -3,6 +3,7 @@ import com.JonathanMa.Chapter02.Ch02
 import com.JonathanMa.Chapter06.Rational
 import com.JonathanMa.Chapter07.chapter7._
 import com.JonathanMa.Chapter05
+import com.JonathanMa.Chapter09._
 object main {
 
   def main(Args: Array[String]): Unit = {

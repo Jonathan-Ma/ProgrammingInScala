@@ -1,6 +1,6 @@
 package com.JonathanMa.Chapter09
 
-import java.io.File
+import java.io.{File, PrintWriter}
 
 
 object FileMatcher {
@@ -40,4 +40,21 @@ object Section3{
   def curriedSum(x: Int)(y: Int): Int = x + y
 
   def onePlus: Int => Int = curriedSum(1) _
+}
+
+object Section4{
+  def twice(op: Double => Double, x: Int) = op(op(x))
+
+  def withPrintWriter(file: File, op: PrintWriter => Unit) = {
+    val writer = new PrintWriter(file)
+
+    try{
+      op(writer)
+    } finally {
+      writer.close()
+    }
+  }
+  // note: you can use curly braces to provide argument to a function that only takes one parameter
+
+  
 }

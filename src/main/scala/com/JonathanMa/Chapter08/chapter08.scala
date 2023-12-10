@@ -45,6 +45,21 @@ object Main {
     println(c(10))
     // the closure sees the change and 'more' can also be changed by the closure
 
+
+    // repeated parameters
+    def echo(args: String*) = {
+      for (arg <- args) print(arg + " ")
+      println()
+    }
+    echo("Repeated", "arguments", "using", "asterick")
+
+    // named arguments allow you to pass arguments in different order
+    def speed(distance: Int, time: Int) = distance / time
+    println("Named argument: " + speed(100, 10) + " " + speed(time = 10, distance = 100))
+
+    // parameters can have defaults
+    def printTime(out: java.io.PrintStream = Console.out) =
+      out.println("time = " + System.currentTimeMillis())
   }
 }
 

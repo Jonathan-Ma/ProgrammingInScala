@@ -56,5 +56,10 @@ object Section4{
   }
   // note: you can use curly braces to provide argument to a function that only takes one parameter
 
-  
+  object Section5{
+    val assertEnabled = true
+    def byNameAssert(predicate: => Boolean): Unit =
+      if(assertEnabled && !predicate)
+        throw new AssertionError()
+  }
 }

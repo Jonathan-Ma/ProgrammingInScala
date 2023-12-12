@@ -39,7 +39,82 @@ Subtyping:
           this is allowed because ArrayElement is a subclass of Element
  */
 
-/* Overriding methods and fields:
+/*
+  10.5 Overriding methods and fields:
       With uniform access principle (UAP), we can change the internal application of a field or method
       without affecting how the client accesses the member.
 */
+
+/*
+  10.6 Defining parametric fields
+    The conts parameter for ArrayElements is solely for contents field, this is "code smell"
+    which is a sign there may be redundancy in code.
+    So in comes parametric fields, the combination of a field and parameter:
+
+      class Cat{
+        val dangerous: = true
+      }
+      class Tiger(
+        override val dangerous: Boolean
+        private var age: Int
+      ) extends Cat
+
+    Notice here we can have modifiers(private, protected, override).
+    The code above is the same as:
+
+      class Tiger(param1: Boolean, param2: Int) extends Cat{
+        override val dangerous = param1
+        private var ag = param2
+      }
+ */
+
+/*
+  10.7 Invoking superclass constructors
+ */
+class LineElement(s: String) extends ArrayElements(Array(s)){
+  override def width: Int = s.length
+
+  override def height: Int = 1
+}
+
+/*
+  10.8 Using override modifier
+    1. All concrete members require an override modifier
+    2. Optional for abstract members
+ */
+
+/*
+  10.9 Polymorphism and dynamic binding
+    Remember how a var with type Element can refer a type ArrayElement, that is polymorphism.
+    You can also say Element object can have many forms.
+ */
+
+class UniformElement(ch: Character, override val height: Int, override val width: Int) extends Element {
+  private val line = ch.toString * width
+
+  def contents: Array[String] = Array.fill(height)(line)
+}
+
+// dynamic binding means that a method invocation on a expression is based on the objects class, not the type of the variable:
+/*
+    abstract class Element {
+      def demo() = {
+        println("Element's implementation invoked")
+      }
+    }
+    class ArrayElement extends Element {
+      override def demo() = {
+        println("ArrayElement's implementation invoked")
+      }
+    }
+    class LineElement extends ArrayElement {
+      override def demo() = {
+        println("LineElement's implementation invoked")
+      }
+    }
+
+    def invokeDemo(e:Element) = {
+      e.Demo()
+    }
+*/
+

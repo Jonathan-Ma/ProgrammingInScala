@@ -118,3 +118,27 @@ class UniformElement(ch: Character, override val height: Int, override val width
     }
 */
 
+/*
+  10.10 Declaring final members
+    When you do not want a class or method to be overridden then you can use the "final" modifier.
+      class ArrayElement extends Element {
+        final override def demo() = {
+          println("ArrayElement's implementation invoked")
+        }
+      }
+    This will not compile because LineElement will throw an error because it extends ArrayElement
+    and tries to override the final demo method.
+
+    Similarly you can final a whole class so that it cannot be inherited:
+      final class ArrayElement extends Element {
+        override def demo() = {
+          println("ArrayElement's implementation invoked")
+        }
+      }
+    This will throw an error illegal inheritance from final class
+ */
+
+/*
+  10.11 Using composition and inheritance
+    
+ */

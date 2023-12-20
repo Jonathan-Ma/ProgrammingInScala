@@ -1,7 +1,7 @@
 package com.JonathanMa.Chapter10
 
 
-object Section1{
+object Section1 {
 
 }
 
@@ -15,11 +15,11 @@ object Section1{
 // read fields
 abstract class Element {
   def contents: Array[String]
+
   def height: Int = contents.length
+
   def width: Int = if (height == 0) 0 else contents(0).length
 }
-
-
 
 
 // ArrayElements is a subclass of Element because it extends Element
@@ -71,7 +71,7 @@ Subtyping:
 /*
   10.7 Invoking superclass constructors
  */
-class LineElement(s: String) extends ArrayElements(Array(s)){
+class LineElement(s: String) extends ArrayElements(Array(s)) {
   override def width: Int = s.length
 
   override def height: Int = 1
@@ -140,5 +140,62 @@ class UniformElement(ch: Character, override val height: Int, override val width
 
 /*
   10.11 Using composition and inheritance
-    
+    Takeaway from this section is that inheritance has the "fragile base class" problem.
+    Basically if you want to change the base class you risk breaking subclasses.
  */
+
+/*
+  10.12 Implementing above, beside, and toString
+ */
+
+import Element2.elem
+
+abstract class Element2 {
+  def contents: Array[String]
+
+  def height: Int = contents.length
+
+  def width = if (height == 0) 0 else contents(0).length
+
+  def above(that: Array[String]): Element2.ArrayElements2 = elem(this.contents ++ that.contents)
+
+  def beside(that: Array[String]): Element2.ArrayElements2 = elem(for ((list1, list2) <- this.contents zip that.contents) yield list1 + list2)
+
+  //  def above(that: Element2): Element2 =
+  //    new ArrayElements2(this.contents ++ that.contents)
+  //
+  //  def beside(that: Element2): Element2 =
+  //    new ArrayElements2(
+  //      for (
+  //        (line1, line2) <- this.contents zip that.contents
+  //      ) yield line1 + " " + line2
+  //    )
+  // Commented out because we are adding a companion object of class Element and making that the factory object
+  override def toString: String = contents mkString ("\n")
+}
+
+
+object Element2 {
+  private class ArrayElements2(val contents: Array[String]) extends Element2 {
+  }
+
+  private class UniformElements2(override val contents: Array[String], override val width: Int, override val height: Int) extends Element2 {
+  }
+
+  private class LineElement2(override val contents: Array[String], override val width: Int) extends Element2 {
+    override val height = 1
+    
+  }
+
+  def elem(arr: Array[String]) = {
+    new ArrayElements2(arr)
+  }
+
+  def elem(char: Char, width: Int, height: Int) = {
+    new ArrayElements(Array(char))
+  }
+
+  def elem(s: String, width: Int): Unit = {
+    new LineElement()
+  }
+}

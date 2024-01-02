@@ -148,7 +148,7 @@ class UniformElement(ch: Character, override val height: Int, override val width
   10.12 Implementing above, beside, and toString
  */
 
-import Element2.{UniformElements2, elem}
+import Element2.elem
 
 abstract class Element2 {
   def contents: Array[String]
@@ -157,9 +157,9 @@ abstract class Element2 {
 
   def width = if (height == 0) 0 else contents(0).length
 
-  def above(that: Element2): Element2.ArrayElements2 = elem(this.contents ++ that.contents)
+  def above(that: Element2): Element2 = elem(this.contents ++ that.contents)
 
-  def beside(that: Element2): Element2.ArrayElements2 = elem(for ((list1, list2) <- this.contents zip that.contents) yield list1 + list2)
+  def beside(that: Element2): Element2 = elem(for ((list1, list2) <- this.contents zip that.contents) yield list1 + list2)
 
   //  def above(that: Element2): Element2 =
   //    new ArrayElements2(this.contents ++ that.contents)
@@ -179,6 +179,14 @@ abstract class Element2 {
       val top = elem(' ', width, (h - height) / 2)
       val bot = elem(' ', width, h - height - top.height)
       top above this above bot
+    }
+
+  def widen(w: Int): Element2 =
+    if (w <= width) this
+    else {
+      val left = elem(' ', (w - width) / 2, height)
+      val right = elem(' ', w - width - left.width, height)
+      left beside this beside right
     }
 }
 
@@ -200,15 +208,15 @@ object Element2 {
 
   }
 
-  def elem(arr: Array[String]): ArrayElements2 = {
+  def elem(arr: Array[String]): Element2 = {
     new ArrayElements2(arr)
   }
 
-  def elem(char: Char, width: Int, height: Int): UniformElements2 = {
+  def elem(char: Char, width: Int, height: Int): Element2 = {
     new UniformElements2(char, width, height)
   }
 
-  def elem(s: String): Unit = {
+  def elem(s: String): Element2 = {
     new LineElement2(s)
   }
 }

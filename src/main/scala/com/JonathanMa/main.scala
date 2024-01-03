@@ -2,6 +2,8 @@ import com.JonathanMa.Chapter05
 import com.JonathanMa.Chapter02.Ch02
 import com.JonathanMa.Chapter06.Rational
 import com.JonathanMa.Chapter07.chapter7._
+import com.JonathanMa.Chapter05
+import com.JonathanMa.Chapter09._
 object main {
 
   def main(Args: Array[String]): Unit = {
@@ -22,8 +24,9 @@ object main {
     println("The factored version of 64/128 is: " + rational4)// result of using a private val and method
     println("Rational " + rational4 + " + " + integer + " = " + (rational4+integer))
      */
-    grep("random")
-    tryCatching()
-    println(multiTable())
+//    grep("random")
+//    tryCatching()
+//    println(multiTable())
+
   }
 }

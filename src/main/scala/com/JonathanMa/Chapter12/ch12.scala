@@ -1,3 +1,6 @@
+package com.JonathanMa.Chapter12
+import scala.collection.mutable.ArrayBuffer
+
 /*
   Chapter 12: Traits
     Traits are fundamental unit of code reuse. Trait encapsulates method and field
@@ -104,4 +107,79 @@
       rec.left > Int = 1
       rec.right > Int = 10
       rec.width > Int = 9
+ */
+
+/*
+  12.4 The Ordered trait
+    Primary role is to enrich a class with relational operation capabilities. The reason why its called ordered, from my interpretation,
+    is because when you mix in the ordered trait, you have to implement the compare method, which gives you an integer that
+    implies the order of the objects compared.
+    Another thing you have to do when you mix in the trait is to provide the type of the class you're mixing in to:
+
+      class Rational(n: Int, d: Int): Rational extends Ordered[Rational] {
+        // Rational
+        def compare(that: Rational): Int = {
+          (this.numer * that.denom) - (this.denom * that.numer)
+        }
+      }
+
+    What Ordered trait looks like under the hood in a nutshell:
+
+      trait Ordered[T] {
+        def compare(that: T):Int
+        def <(that: T): Boolean = (this compare that) < 0
+        def >(that: T): Boolean = (this compare that) > 0
+        def <=(that: T): Boolean = (this compare that) <= 0
+        def >=(that: T): Boolean = (this compare that) >= 0
+      }
+
+ */
+
+/*
+  12.5 Traits as stackable modifications
+    Traits can modify the methods of a class and be stacked together.
+    Consider the example of a queue with two operations put and get that can insert an integer and remove an integer
+    and return it respectively. We can implement traits to perform modifications such as Doubling, Incrementing, and Filtering.
+    They are stackable because you can choose any one of them, or all three, and mix them into a class.
+
+ */
+//Example:
+
+
+abstract class IntQueue {
+  def put(x: Int): Unit
+  def get(): Int
+}
+
+class BasicQueue extends IntQueue {
+  private val buf = new ArrayBuffer[Int]()
+  override def put(x: Int): Unit = buf += x
+
+  override def get(): Int = buf.remove(0)
+}
+
+trait Doubling extends IntQueue {
+  abstract override def put(x: Int): Unit = super.put(x * 2)
+}
+
+trait Incrementing extends IntQueue {
+  abstract override def put(x: Int): Unit = super.put(x + 1)
+}
+
+trait Filtering extends IntQueue {
+  abstract override def put(x: Int): Unit = {
+    if (x >= 0) super.put(x)
+  }
+}
+
+/*
+  12.6 Why not multiple inheritance?
+    This section talks about linearization of mixing in multiple traits and how that affects super.
+ */
+
+/*
+  12.7 To trait or not to trait
+    If behavior will not be reused, make it into concrete class.
+    If it might be reused in multiple, unrelated classes, make it into trait.
+    If you want to inherit from it in Java use abstract class.
  */

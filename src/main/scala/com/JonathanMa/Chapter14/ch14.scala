@@ -34,5 +34,7 @@ object Chapter14{
 
 /*
   14.4 Tests as specifications
-
+    Behavior Driven Development (BDD) testing style emphasizes on human-readable specifications of the expected code and accompanying tests
+    that verify the code has the specified behavior. Code in Chapter14.scala
  */
+

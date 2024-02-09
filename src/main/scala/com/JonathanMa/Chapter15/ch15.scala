@@ -129,8 +129,87 @@ object Chapter15 {
   // case 6 is a variable that catches all
 
   /*
-
+  15.3 Pattern guard
+    A pattern guard comes after a pattern and starts with an if. The pattern matches only if the guard is true.
+      def guard(expr: Expr): Any = expr match {
+        case BinOp("+", x, y) if y == x => BinOp("*", x, Number(2))
+        case _ =>
+      }
+    The example above matches the case only if x == y
    */
+
+  /*
+    15.4 Pattern overlaps
+      Basically order matters significantly so don't put catch-all on the top.
+   */
+
+  /*
+    15.5 Sealed classes
+      Sealing a class is to ensure that when you pattern match, you don't miss out any cases. Sealed classes also prevent you from
+      adding new subclasses.
+   */
+  sealed abstract class Expr2
+  case class Var2(name: String) extends Expr2
+  case class Number2(num: Double) extends Expr2
+  case class UnOp2(operator: String, arg: Expr2) extends Expr2
+  case class BinOp2(operator: String,
+                   left: Expr, right: Expr) extends Expr2
+
+  def describe(e: Expr2): String = e match {
+    case Number2(_) => "a number"
+    case Var(_) => "variable"
+  }
+
+  /*
+    compiler here will complain warning: match is not exhaustive!
+    missing combination UnOp
+    missing combination BinOp
+
+    If you want this to go away then use @unchecked annotation like so:
+      def describe(e: Expr): String = (e: @unchecked) match {
+        case Number(_) => "a number"
+        case Var(_) => "a variable"
+      }
+    This will suppress the exhaustivity check.
+   */
+
+  /*
+      15.6 The Option type
+        The Option type is a safer and more explicit alternative to "null" for optional values. It is particularly useful
+        in operations like "Map.get" which returns "Option" to safely handle the presence or absence of a key. Pattern matching with
+        Option prevents runtime errors like "NullPointerException".
+   */
+
+  def show(x: Option[String]): String = x match {
+    case Some(s) => s
+    case None => "?"
+  }
+
+  /*
+    15.7 Patterns everywhere
+      Patterns in variable definitions
+        Patterns can be in variable definitions not just match expressions.
+          val myTuple = (123, "abc")
+          val (number, string) = myTuple
+        This is called destructuring, it is essentially using pattern matching to "unpack" or destructuring the tuple by creating two
+        new variables number and string, then it extracts corresponding elements and assigns them to the new variables.
+
+      Case sequences as partial functions
+        Case sequences can be function literals providing multiple entry points, each with there own list of parameters.
+        Each case is an entry point to the function and the parameters are the pattern of the case:
+          def withDefault: Option[Int] => Int = {
+            case Some(x) => x
+            case None => 0
+          }
+        withDefault(Some(10)) returns 10
+
+        It is essential to note that a sequence of cases creates a partial function. If you apply such a function to a value
+        that it does not support then there will be a runtime error.
+          def second:(List[Int]) => Int = {
+            case x :: y :: _ => y
+          }
+        this will work with a list with 3 elements but not an empty one and will throw an warning at compile and error at runtime
+        if list is not the right size.
+   */
+  
 }
-
-

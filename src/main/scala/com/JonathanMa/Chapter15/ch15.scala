@@ -211,5 +211,5 @@ object Chapter15 {
         this will work with a list with 3 elements but not an empty one and will throw an warning at compile and error at runtime
         if list is not the right size.
    */
-  
+
 }

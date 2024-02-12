@@ -1,6 +1,5 @@
 import org.scalatest.funsuite.AnyFunSuite
 import com.JonathanMa.Chapter14.Chapter14._
-import org.scalatest.diagrams.Diagrams
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 

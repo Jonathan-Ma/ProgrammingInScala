@@ -8,8 +8,8 @@ import com.JonathanMa.Chapter10.Element2.elem
 import com.JonathanMa.Chapter10._
 import com.JonathanMa.Chapter12._
 import com.JonathanMa.Chapter14._
-import com.JonathanMa.Chapter15.Chapter15.BinOp
-import com.JonathanMa.Chapter15._
+import com.JonathanMa.Chapter15.Chapter15._
+
 
 object main {
 
@@ -77,8 +77,10 @@ object main {
     queue.put(-1)
     println(queue.get()) // Prints 0
 
-    println(Chapter15.binOp.left == Chapter15.Number(2))// prints true
+    println(binOp.left == Number(2))// prints true
 
-    println(s"simplifyTop: ${Chapter15.simplifyTop(BinOp("*", Chapter15.Number(0), Chapter15.Number(10)))}")
+    println(s"simplifyTop: ${simplifyTop(BinOp("*", Number(0), Number(10)))}")
+
+      println(describe(UnOp2("+", Number2(1))))
   }
 }

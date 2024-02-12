@@ -45,8 +45,11 @@ object Chapter15 {
   def simplifyTop(expr: Expr): Any = expr match {
     case UnOp("-", UnOp("-", e)) => e
     case BinOp("+", e, Number(0)) => e
+    case BinOp("+", Number(0), e) => e
     case BinOp("*", e, Number(1)) => e
-    case BinOp("*", Number(0), _) => 0: Int
+    case BinOp("*", Number(1), e) => e
+    case BinOp("*", Number(0), _) => 0
+    case BinOp("*", _, Number(0)) => 0
     case _ => expr
   }
 
@@ -155,11 +158,17 @@ object Chapter15 {
   case class BinOp2(operator: String,
                    left: Expr, right: Expr) extends Expr2
 
+//  def describe(e: Expr2): String = e match {
+//    case Number2(_) => "a number"
+//    case Var2(_) => "variable"
+//  }
+
   def describe(e: Expr2): String = e match {
     case Number2(_) => "a number"
-    case Var(_) => "variable"
+    case Var2(_) => "variable"
+    case BinOp2(_, _, _) => "Binary"
+    case UnOp2(_, _) => "Unary"
   }
-
   /*
     compiler here will complain warning: match is not exhaustive!
     missing combination UnOp

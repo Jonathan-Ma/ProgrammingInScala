@@ -26,7 +26,7 @@ object Chapter16Lists {
     else xs.head :: insert(x, xs.tail)
   }
 
-  // 16.5 List patterns
+  /*16.5 List patterns*/
   val List(a, b, c) = fruits
   // a: String = lemon
   // b: String = orange
@@ -35,7 +35,15 @@ object Chapter16Lists {
   // j = 1 and rest is List(1, 2)
   val j :: rest = nums
 
-
-
+  /*16.6 Concatenating two lists*/
+  //example: List(1, 2) ::: List(3, 4, 5) -> List(1, 2, 3, 4, 5)
+  /*
+    Or we can make a create an append function because its more instructive.
+   */
+  def append(xs: List[T], ys: List[T]):List[T] =
+    xs match {
+      case List() => ys
+      case x :: xs1 => x :: append(xs1, ys)
+    }
   }
 

@@ -34,10 +34,10 @@ class Chapter16Test extends AnyFunSuite {
     assert(abcde.indices == (0 to 4))
   }
   test("abcde.zip(List(0, 1, 2)) should return Vector(('a', 0), ('b', 1), ('c', 2))"){
-    assert(abcde.zip(List(0, 1, 2)) == Vector(('a', 0), ('b', 1), ('c', 2)))
+    assert(abcde.zip(List(0, 1, 2)) == List(('a', 0), ('b', 1), ('c', 2)))
   }
   test("abcde.zipWithIndex should return Vector(('a', 0), ('b', 1), ('c', 2), ('d', 3), ('e', 4))"){
-    assert(abcde.zipWithIndex == Vector(('a', 0), ('b', 1), ('c', 2), ('d', 3), ('e', 4)))
+    assert(abcde.zipWithIndex == List(('a', 0), ('b', 1), ('c', 2), ('d', 3), ('e', 4)))
   }
   test("abcde.zipWithIndex.unzip should return List((List('a', 'b', 'c', 'd', 'e'), List(0, 1, 2, 3, 4))"){
     assert(abcde.zipWithIndex.unzip == ((List('a', 'b', 'c', 'd', 'e'), List(0, 1, 2, 3, 4))))
@@ -51,7 +51,7 @@ class Chapter16Test extends AnyFunSuite {
 
   /* 16.7 Higher-order methods on class List */
   test("nums.map(_ * 2) should return List(2, 4, 6, 8)"){
-    assert(nums.map(_ * 2) == List(2, 4, 6, 8))
+    assert(nums.map(_ * 2) == List(2, 4, 6, 8, 10, 12, 20, 40, 60))
   }
   test("words.map(_.length) should return List(3, 5, 5, 3)"){
     assert(words.map(_.length) == List(3, 5, 5, 3))
@@ -59,5 +59,14 @@ class Chapter16Test extends AnyFunSuite {
   test("words.flatMap(_.toList) should return List(t, h, e, q, u, i, c, k, b, r, o, w, n, f, o, x)"){
     assert(words.flatMap(_.toList) == List('t', 'h', 'e', 'q', 'u', 'i', 'c', 'k', 'b', 'r', 'o', 'w',
       'n', 'f', 'o', 'x'))
+  }
+  test("nums.filter(_ % 2 == 0) should return List(2, 4, 6, 10, 20, 30)"){
+    assert(nums.filter(_ % 2 == 0) == List(2, 4, 6, 10, 20, 30))
+  }
+  test("nums.partition(_ % 2 == 0) should return (List(2, 4, 6, 10, 20, 30), List(1, 3, 5))"){
+    assert(nums.partition(_ % 2 == 0) == (List(2, 4, 6, 10, 20, 30), List(1, 3, 5)))
+  }
+  test("nums.find(_ % 2 ==0) should return Some(2)"){
+    assert(nums.find(_ % 2 == 0).contains(2))
   }
 }

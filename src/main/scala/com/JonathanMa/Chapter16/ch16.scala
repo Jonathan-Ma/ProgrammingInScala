@@ -13,7 +13,7 @@ object Chapter16Lists {
   // 16.3 Constructing lists and list literals
 
   val fruits: List[String] = "lemon" :: ("orange" :: ("watermelon" :: Nil))
-  val nums: List[Int] = 1 :: (2 :: (3 :: (4 ::Nil)))
+  val nums: List[Int] = List(1, 2, 3, 4, 5, 6, 10, 20, 30)
   // We can leave out the parentheses:
   val reg: List[String] = "hello" :: "there" :: "!" :: Nil
 
@@ -85,5 +85,8 @@ object Chapter16Lists {
   val words = List("the", "quick", "brown", "fox")
   // words.map(_.length) -> List(3, 5, 5, 3)
 
-
+  /* Filtering lists: filter, partition, find, takeWhile dropWhile, and span*/
+  // nums.filter(_ % 2 == 0) -> List(2, 4, 6, 10, 20, 30)
+  // nums.partition(_ % 2 == 0) -> (List(2, 4, 6, 10, 20, 30), List(1, 3, 5))
+  // nums.find(_ % 2 == 0) -> Some(2)
 }

@@ -69,4 +69,16 @@ class Chapter16Test extends AnyFunSuite {
   test("nums.find(_ % 2 ==0) should return Some(2)"){
     assert(nums.find(_ % 2 == 0).contains(2))
   }
+  test("val takeWhile should return should return List(1, 2, 3, 4, 5)"){
+    assert(takeWhile == List(1, 2, 3, 4, 5))
+  }
+  test("val dropWhile should return should return List(6, 10, 20, 30)"){
+    assert(dropWhile == List(6, 10, 20, 30))
+  }
+  test("val span should return should return (List(1, 2, 3, 4, 5), List(6, 10, 20, 30))"){
+    assert(span == (List(1, 2, 3, 4, 5), List(6, 10, 20, 30)))
+  }
+  test("sum should equal to 81"){
+    assert(sum == 81)
+  }
 }

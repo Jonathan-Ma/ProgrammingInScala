@@ -10,7 +10,7 @@ object Chapter16Lists {
       4. List type is covariant(List[+T]).
  */
 
-  // 16.3 Constructing lists and list literals
+  /* *** 16.3 Constructing lists and list literals */
 
   val fruits: List[String] = "lemon" :: ("orange" :: ("watermelon" :: Nil))
   val nums: List[Int] = List(1, 2, 3, 4, 5, 6, 10, 20, 30)
@@ -27,7 +27,7 @@ object Chapter16Lists {
     else xs.head :: insert(x, xs.tail)
   }
 
-  /*16.5 List patterns*/
+  /* *** 16.5 List patterns*/
   val List(a, b, c) = fruits
   // a: String = lemon
   // b: String = orange
@@ -36,7 +36,7 @@ object Chapter16Lists {
   // j = 1 and rest is List(1, 2)
   val j :: rest = nums
 
-  /*16.6 First order methods on class List*/
+  /* *** 16.6 First order methods on class List*/
 
   // Taking the length of a list
   val length: Int = fruits.length
@@ -78,15 +78,36 @@ object Chapter16Lists {
   /* Converting lists: iterator, toArray, copyToArray */
   // abcde.toArray -> Array(a, b, c, d, e)
 
-  /* 16.7 Higher-order methods on class List */
+  /* *** 16.7 Higher-order methods on class List */
   /* Mapping over lists: map, flatmap and foreach */
   // val nums = List(1, 2, 3, 4)
   // nums.map(_*2) -> List(2, 4, 6, 8)
-  val words = List("the", "quick", "brown", "fox")
+  val words: List[String] = List("the", "quick", "brown", "fox")
   // words.map(_.length) -> List(3, 5, 5, 3)
 
   /* Filtering lists: filter, partition, find, takeWhile dropWhile, and span*/
   // nums.filter(_ % 2 == 0) -> List(2, 4, 6, 10, 20, 30)
   // nums.partition(_ % 2 == 0) -> (List(2, 4, 6, 10, 20, 30), List(1, 3, 5))
   // nums.find(_ % 2 == 0) -> Some(2)
+  val takeWhile: List[Int] = nums.takeWhile(_ < 6)// should return List(1, 2, 3, 4, 5)
+  val dropWhile: List[Int] = nums.dropWhile(_ < 6)// should return List(6, 10, 20, 30)
+  val span: (List[Int], List[Int]) = nums.span(_ < 6)// should return (List(1, 2, 3, 4, 5), List(6, 10, 20, 30))
+
+  /* Predicates over lists: forall and exists */
+  def allZero(x: List[List[Int]]): Boolean = {
+    x exists(row => row forall (_ == 0))
+  }
+
+  val diag: List[List[Int]] = List(List(1, 0, 0), List(0, 1, 0), List(0, 0, 1))// should be false if passed to allZero
+
+  /* Folding lists: foldLeft and foldRight */
+  var sum: Int = nums.foldLeft(0)(_ + _)// should return 81
+
+  /* *** 16.8 Methods of the List object */
+  /* Creating lists from their elements: List.apply */
+  /* Creating a range of numbers: List.range(start, until) or (start, until, step)*/
+  /* Creating uniform lists: List.fill*/
+  /* Tabulating a function: List.tabulate(dimension)(function)*/
+  /* Concatenating multiple lists: List.concat*/
+  
 }
